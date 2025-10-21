@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaCore Analytics | Consultoría Estratégica B2B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Corporativo Confiable (#1E3A8A - Primary, #475569 - Secondary, #3B82F6 - Accent) -->
+    <style>
+        :root {
+            --color-primary: #1E3A8A; 
+            --color-secondary: #475569; 
+            --color-accent: #3B82F6; 
+            --color-background: #F8FAFC; 
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--color-secondary);
+        }
+        .font-heading {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--color-primary);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            height: 300px; 
+            max-height: 400px; 
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        /* Estilos para el Carrusel Automático de Logos (Ajustado para evitar solapamiento) */
+        .logo-scroll-container {
+            overflow: hidden;
+            width: 100%;
+        }
+        .logo-track {
+            white-space: nowrap;
+            animation: scroll 30s linear infinite; /* Animación más lenta */
+            display: flex;
+        }
+        .logo-track:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); } /* Sólo la mitad, porque el contenido está duplicado una vez */
+        }
+        .logo-track > * {
+            flex-shrink: 0;
+            min-width: 180px; /* Aumento de ancho mínimo para evitar solapamiento de texto */
+            text-align: center;
+            padding-right: 4rem; /* Espacio fijo entre logos */
+        }
+    </style>
+</head>
+<body class="bg-[var(--color-background)]">
+
+    <!-- Navegación Fija y Minimalista -->
+    <nav class="bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold font-heading">NovaCore</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#soluciones" class="text-secondary hover:text-[var(--color-primary)] transition">Soluciones</a>
+                <a href="#datos" class="text-secondary hover:text-[var(--color-primary)] transition">Nuestros Datos</a>
+                <a href="#empresa" class="text-secondary hover:text-[var(--color-primary)] transition">Empresa</a>
+            </div>
+            <a href="#contacto" class="bg-[var(--color-accent)] text-white font-medium py-2 px-6 rounded-lg shadow-lg hover:bg-blue-600 transition duration-300">
+                Contactar
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 1. Sección HERO - Propuesta de Valor Clara con Imagen Estética Adaptativa -->
+        <section class="py-24 md:py-32">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <!-- items-center asegura que la imagen se alinea bien con el texto -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center"> 
+                    <!-- Columna de Texto -->
+                    <div>
+                        <p class="text-[var(--color-accent)] font-semibold uppercase tracking-widest mb-4">Análisis Estratégico B2B</p>
+                        <h1 class="text-5xl md:text-6xl font-extrabold font-heading leading-tight mb-6">
+                            Transformamos Datos en <span class="text-[var(--color-accent)]">Crecimiento Sostenible</span>.
+                        </h1>
+                        <p class="text-xl text-[var(--color-secondary)] mb-10">
+                            Ofrecemos consultoría avanzada y soluciones de Business Intelligence para optimizar la toma de decisiones y acelerar la rentabilidad de tu negocio.
+                        </p>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <a href="#soluciones" class="bg-[var(--color-primary)] text-white font-bold py-3 px-8 rounded-lg shadow-xl hover:bg-blue-700 transition duration-300 transform hover:scale-[1.02]">
+                                Explorar Soluciones
+                            </a>
+                            <a href="#contacto" class="bg-white text-[var(--color-primary)] font-bold py-3 px-8 rounded-lg border border-[var(--color-primary)] hover:bg-gray-100 transition duration-300 transform hover:scale-[1.02]">
+                                Pedir Demo Gratuita
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Columna de Imagen Estética (Visible solo en pantallas grandes) -->
+                    <div class="hidden lg:block">
+                        <!-- Imagen placeholder con dimensiones optimizadas para el grid 1:1 -->
+                        <img 
+                            src="https://negociosyempresa.com/wp-content/uploads/2020/07/hombre-ejecutivo-se%C3%B1ala-mano-linea-crecimiento-empresa.jpg" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/800x600/1E3A8A/FFFFFF?text=NovaCore'" 
+                            alt="Visualización de datos estratégicos y gráficos abstractos." 
+                            class="rounded-xl shadow-2xl border-4 border-white transform hover:scale-[1.01] transition duration-500 w-full h-auto object-cover"
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Prueba Social (Logos) - Carrusel Automático -->
+        <section class="bg-white py-12">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <p class="text-center text-sm font-medium uppercase mb-8 text-[var(--color-secondary)]">Empresas líderes confían en nuestros análisis</p>
+                <div class="logo-scroll-container">
+                    <div class="logo-track">
+                        <!-- El conjunto se duplica (7 logos) para el loop infinito sin solapamiento -->
+                        <span class="text-2xl font-bold text-gray-400">Brand A</span>
+                        <span class="text-2xl font-bold text-gray-400">TechCo Solutions</span>
+                        <span class="text-2xl font-bold text-gray-400">Global Partners</span>
+                        <span class="text-2xl font-bold text-gray-400">CorpX Group</span>
+                        <span class="text-2xl font-bold text-gray-400">FinSys Inc.</span>
+                        <span class="text-2xl font-bold text-gray-400">MediaTech</span>
+                        <span class="text-2xl font-bold text-gray-400">Zenith</span>
+                        <!-- Conjunto Duplicado -->
+                        <span class="text-2xl font-bold text-gray-400">Brand A</span>
+                        <span class="text-2xl font-bold text-gray-400">TechCo Solutions</span>
+                        <span class="text-2xl font-bold text-gray-400">Global Partners</span>
+                        <span class="text-2xl font-bold text-gray-400">CorpX Group</span>
+                        <span class="text-2xl font-bold text-gray-400">FinSys Inc.</span>
+                        <span class="text-2xl font-bold text-gray-400">MediaTech</span>
+                        <span class="text-2xl font-bold text-gray-400">Zenith</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Servicios / Soluciones Clave con Iconos Profesionales -->
+        <section id="soluciones" class="py-20 md:py-28 scroll-mt-20">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <h2 class="text-4xl font-bold font-heading text-center mb-4">Nuestras Soluciones Clave</h2>
+                <p class="text-xl text-[var(--color-secondary)] text-center max-w-3xl mx-auto mb-16">Diseñadas para la velocidad, precisión y una escalabilidad sin límites.</p>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Tarjeta 1: Business Intelligence -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-[var(--color-accent)] hover:shadow-xl transition duration-300">
+                        <div class="text-4xl block mb-4 text-[var(--color-accent)] w-12 h-12 flex items-center justify-center bg-blue-50 rounded-full">
+                            &#x25A0; <!-- Icono: Cuadrado (Paneles / Estructura) -->
+                        </div>
+                        <h3 class="text-2xl font-semibold font-heading mb-3">Business Intelligence</h3>
+                        <p class="text-base text-[var(--color-secondary)]">Implementamos paneles de control intuitivos que transforman datos crudos en inteligencia accionable en tiempo real.</p>
+                        <a href="#" class="mt-4 inline-block text-[var(--color-accent)] font-medium hover:underline">Aprender más &rarr;</a>
+                    </div>
+                    <!-- Tarjeta 2: Estrategia de Mercado -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-[var(--color-accent)] hover:shadow-xl transition duration-300">
+                         <div class="text-4xl block mb-4 text-[var(--color-accent)] w-12 h-12 flex items-center justify-center bg-blue-50 rounded-full">
+                            &#x25B2; <!-- Icono: Triángulo (Crecimiento / Estrategia) -->
+                        </div>
+                        <h3 class="text-2xl font-semibold font-heading mb-3">Estrategia de Mercado</h3>
+                        <p class="text-base text-[var(--color-secondary)]">Identificamos oportunidades de crecimiento y optimizamos la segmentación de clientes mediante modelos predictivos avanzados.</p>
+                        <a href="#" class="mt-4 inline-block text-[var(--color-accent)] font-medium hover:underline">Aprender más &rarr;</a>
+                    </div>
+                    <!-- Tarjeta 3: Seguridad y Gobernanza -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-[var(--color-accent)] hover:shadow-xl transition duration-300">
+                        <div class="text-4xl block mb-4 text-[var(--color-accent)] w-12 h-12 flex items-center justify-center bg-blue-50 rounded-full">
+                            &#x2714; <!-- Icono: Check (Seguridad / Cumplimiento) -->
+                        </div>
+                        <h3 class="text-2xl font-semibold font-heading mb-3">Seguridad y Gobernanza</h3>
+                        <p class="text-base text-[var(--color-secondary)]">Aseguramos que tu infraestructura de datos cumpla con las normativas más estrictas y esté lista para el futuro.</p>
+                        <a href="#" class="mt-4 inline-block text-[var(--color-accent)] font-medium hover:underline">Aprender más &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Sección de Datos y Credibilidad (Gráfico Interactivo) -->
+        <section id="datos" class="py-20 md:py-28 bg-white scroll-mt-20">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl font-bold font-heading mb-4">La Credibilidad está en los Datos</h2>
+                        <p class="text-xl text-[var(--color-secondary)] mb-8">Nuestros resultados hablan por sí solos. Explora nuestras métricas clave para entender el impacto real de NovaCore en la eficiencia de nuestros clientes.</p>
+
+                        <div class="flex space-x-4 mb-8">
+                            <button id="toggleGrowth" class="metric-toggle bg-[var(--color-primary)] text-white font-medium py-3 px-6 rounded-full shadow-md transition duration-300">
+                                Crecimiento Anual Promedio
+                            </button>
+                            <button id="toggleSatisfaction" class="metric-toggle bg-gray-200 text-gray-700 font-medium py-3 px-6 rounded-full hover:bg-gray-300 transition duration-300">
+                                Índice de Satisfacción
+                            </button>
+                        </div>
+
+                        <p id="data-description" class="text-base text-gray-600 border-l-4 border-[var(--color-accent)] pl-4 italic">
+                            Esta sección dinámica demuestra nuestro compromiso con la transparencia. Al cambiar de métrica, el diseño se mantiene limpio, comunicando profesionalismo.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-inner border border-gray-200">
+                        <div class="chart-container">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Llamada a la Acción Final (CTA Block) -->
+        <section id="contacto" class="py-20 md:py-28 bg-[var(--color-primary)] scroll-mt-20">
+            <div class="container mx-auto px-6 text-center max-w-5xl">
+                <h2 class="text-4xl md:text-5xl font-bold font-heading text-white mb-6">¿Listo para Ver la Diferencia?</h2>
+                <p class="text-xl text-blue-200 mb-10">Agenda una sesión de estrategia gratuita y descubre cómo la inteligencia de datos puede optimizar tu próxima década.</p>
+                <a href="mailto:contacto@novacore.com" class="bg-[var(--color-accent)] text-white font-bold py-4 px-10 rounded-lg shadow-2xl text-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105">
+                    Agenda tu Sesión Ahora
+                </a>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- 6. Footer Minimalista -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-12 grid md:grid-cols-4 gap-8 max-w-6xl">
+            <div>
+                <h4 class="text-xl font-bold font-heading text-white mb-4">NovaCore</h4>
+                <p class="text-sm text-gray-400">Transformando el futuro con datos.</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Recursos</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition">Casos de Éxito</a></li>
+                    <li><a href="#" class="hover:text-white transition">Metodología</a></li>
+                    <li><a href="#" class="hover:text-white transition">FAQs</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Empresa</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition">Equipo</a></li>
+                    <li><a href="#" class="hover:text-white transition">Privacidad</a></li>
+                    <li><a href="#" class="hover:text-white transition">Términos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Síguenos</h4>
+                <div class="flex space-x-4 text-gray-400">
+                    <span class="text-2xl hover:text-white transition cursor-pointer">F</span> <!-- Facebook Placeholder -->
+                    <span class="text-2xl hover:text-white transition cursor-pointer">L</span> <!-- LinkedIn Placeholder -->
+                    <span class="text-2xl hover:text-white transition cursor-pointer">X</span> <!-- X/Twitter Placeholder -->
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 py-4">
+            <p class="text-center text-xs text-gray-500">&copy; 2025 NovaCore Analytics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Data Mockup ---
+        const dataSets = {
+            growth: {
+                labels: ['2022 Q1', '2022 Q4', '2023 Q3', '2024 Q2', '2025 Q1'],
+                data: [15, 22, 38, 55, 63],
+                label: 'Crecimiento %',
+                description: 'Hemos impulsado un aumento promedio del 63% en la rentabilidad de nuestros clientes en los últimos tres años, gracias a estrategias basadas en datos.',
+                color: 'rgb(59, 130, 246)' 
+            },
+            satisfaction: {
+                labels: ['Estrategia', 'Implementación', 'Soporte', 'Valor', 'General'],
+                data: [9.2, 8.9, 9.5, 9.3, 9.1],
+                label: 'Puntuación Promedio (de 10)',
+                description: 'Nuestro Índice de Satisfacción del Cliente (CSAT) supera el 9.0, un testimonio de la calidad y el impacto de nuestra consultoría.',
+                color: 'rgb(30, 58, 138)'
+            }
+        };
+
+        let chartInstance = null;
+        let currentDataSet = 'growth';
+
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        const descriptionElement = document.getElementById('data-description');
+        const toggleGrowth = document.getElementById('toggleGrowth');
+        const toggleSatisfaction = document.getElementById('toggleSatisfaction');
+
+        function createChart(data) {
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: data.label,
+                        data: data.data,
+                        borderColor: data.color,
+                        backgroundColor: data.color.replace(')', ', 0.2)').replace('rgb', 'rgba'),
+                        borderWidth: 3,
+                        tension: 0.4, 
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#e5e7eb' 
+                            },
+                             ticks: {
+                                callback: function(value) {
+                                    return currentDataSet === 'growth' ? value + '%' : value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            descriptionElement.innerHTML = data.description;
+        }
+
+        function updateChart(dataSetKey) {
+            currentDataSet = dataSetKey;
+            const data = dataSets[dataSetKey];
+            createChart(data);
+
+            const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim();
+            const textColor = '#FFFFFF';
+            const defaultBgColor = '#E5E7EB';
+            const defaultTextColor = '#4B5563';
+
+            // Update button styles for the minimal toggle effect
+            const buttons = document.querySelectorAll('.metric-toggle');
+            buttons.forEach(btn => {
+                btn.style.backgroundColor = defaultBgColor;
+                btn.style.color = defaultTextColor;
+                btn.classList.add('hover:bg-gray-300');
+                btn.classList.remove('shadow-md');
+            });
+
+            if (dataSetKey === 'growth') {
+                toggleGrowth.style.backgroundColor = primaryColor;
+                toggleGrowth.style.color = textColor;
+                toggleGrowth.classList.remove('hover:bg-gray-300');
+                toggleGrowth.classList.add('shadow-md');
+            } else if (dataSetKey === 'satisfaction') {
+                toggleSatisfaction.style.backgroundColor = primaryColor;
+                toggleSatisfaction.style.color = textColor;
+                toggleSatisfaction.classList.remove('hover:bg-gray-300');
+                toggleSatisfaction.classList.add('shadow-md');
+            }
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateChart('growth'); 
+        });
+
+        // Event Listeners for Toggles
+        toggleGrowth.addEventListener('click', () => updateChart('growth'));
+        toggleSatisfaction.addEventListener('click', () => updateChart('satisfaction'));
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
